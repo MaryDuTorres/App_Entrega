@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { createClient } from '../api/ApiClient';
 
-// Coordenada base em São Paulo (use a que estava fixa)
+
 const BASE_LNG = -46.633;
 const BASE_LAT = -23.55;
 
-// Função para gerar coordenadas fictícias diferentes
+
 const generateFictitiousCoordinates = () => {
-    // Math.random() - 0.5 gera um número entre -0.5 e 0.5
-    // Multiplicado por 0.02, gera um desvio de até 0.01 em cada direção (cerca de 1.1 km)
     const randomLng = BASE_LNG + (Math.random() - 0.5) * 0.02; 
     const randomLat = BASE_LAT + (Math.random() - 0.5) * 0.02;
     
-    // O GeoJSON espera [longitude, latitude]
     return [randomLng, randomLat];
 };
 
@@ -28,7 +25,6 @@ export default function ClientForm({ navigation }) {
             return;
         }
 
-        // 1. GERA COORDENADAS ÚNICAS
         const coordinates = generateFictitiousCoordinates();
         
         try {
@@ -36,11 +32,11 @@ export default function ClientForm({ navigation }) {
                 name, 
                 address, 
                 location: { 
-                    coordinates: coordinates // ENVIA COORDENADAS VARIADAS
+                    coordinates: coordinates 
                 } 
             });
             
-            // Para debug, mostra a primeira coordenada gerada
+
             console.log("Coordenada gerada:", coordinates);
             Alert.alert('Sucesso', `Cliente salvo com coordenada [${coordinates[0].toFixed(4)}, ${coordinates[1].toFixed(4)}]`);
             
@@ -81,4 +77,5 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 5
     }
+
 });
