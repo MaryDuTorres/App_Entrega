@@ -55,20 +55,16 @@ export default function OrderDetail({ route, navigation }) {
         const driverLocation = order.assignedDriver.location.coordinates; // [lng, lat]
 
         try {
-            // 1. BUSCA TODOS OS PEDIDOS ATRIBUÍDOS AO MOTORISTA
             const driverOrders = await fetchOrdersByDriver(driverId);
 
             if (driverOrders.length === 0) {
                 Alert.alert('Erro', 'Nenhum pedido encontrado para este motorista.');
                 return;
             }
-
-            // 2. EXTRAI OS IDs DE TODOS OS PEDIDOS ENCONTRADOS
             const combinedOrderIds = driverOrders.map(o => o._id);
 
-            // 3. CALCULA A ROTA COMBINADA
             const result = await planRoute({
-                orderIds: combinedOrderIds, // Envia TODOS os IDs
+                orderIds: combinedOrderIds, 
                 start: driverLocation
             });
 
@@ -123,4 +119,5 @@ const styles = StyleSheet.create({
     section: { marginTop: 20, paddingTop: 10, borderTopWidth: 1, borderTopColor: '#eee' },
     sectionTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 10 },
     picker: { height: 50, width: '100%', marginBottom: 10 },
+
 });
