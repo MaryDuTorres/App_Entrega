@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Button, FlatList, Text, TouchableOpacity } from 'react-native';
-import { fetchOrders, planRoute } from '../api/ApiClient'; // Importa planRoute
-import { useIsFocused } from '@react-navigation/native'; // Importa useIsFocused para refreh
+import { fetchOrders, planRoute } from '../api/ApiClient'; 
+import { useIsFocused } from '@react-navigation/native'; 
 
 export default function OrdersScreen({ navigation }) {
     const [orders, setOrders] = useState([]);
-    const isFocused = useIsFocused(); // Hook para verificar se a tela está em foco
+    const isFocused = useIsFocused(); 
 
     const refresh = () => fetchOrders().then(setOrders);
 
-    // useEffect para carregar os pedidos e recarregar sempre que a tela entrar em foco
     useEffect(() => {
         if (isFocused) {
             refresh();
@@ -41,4 +40,5 @@ export default function OrdersScreen({ navigation }) {
             }} />
         </View>
     );
+
 }
